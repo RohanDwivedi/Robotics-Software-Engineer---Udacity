@@ -206,8 +206,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_executable(drive_bot src/drive_bot.cpp)
 target_link_libraries(drive_bot ${catkin_LIBRARIES})
-add_dependencies(drive_bot simple_arm_generate_messages_cpp)
+add_dependencies(drive_bot drive_bot_generate_messages_cpp)
 
 add_executable(process_images src/process_images.cpp)
 target_link_libraries(process_images ${catkin_LIBRARIES})
-add_dependencies(process_images simple_arm_generate_messages_cpp)
+add_dependencies(process_images process_images_generate_messages_cpp)
