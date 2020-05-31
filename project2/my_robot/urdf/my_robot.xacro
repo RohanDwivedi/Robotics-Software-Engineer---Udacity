@@ -36,14 +36,14 @@
    	</visual>
 
 	<visual name='front_caster_visual'>
-      	<origin xyz="0.3 0 -0.2" rpy=" 0 0 0"/>
+      	<origin xyz="0.3 0 -0.15" rpy=" 0 0 0"/>
       	<geometry>
         	<sphere radius="0.06"/>
      	 </geometry>
         </visual>
 	
 	<collision name='front_caster_collision'>
-      	<origin xyz="0.7 0 -0.2" rpy=" 0 0 0"/>
+      	<origin xyz="0.3 0 -0.15" rpy=" 0 0 0"/>
       		<geometry>
         		<sphere radius="0.06"/>
       		</geometry>
@@ -145,7 +145,7 @@
 	
 
   <joint type="continuous" name="joint_LeftBackWheel">
-    <origin xyz="-0.35 0.35 0" rpy="0 0 0"/>
+    <origin xyz="-0.35 0.25 0" rpy="0 0 0"/>
     <child link="LeftBackWheel"/>
     <parent link="robot_base"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -154,7 +154,7 @@
   </joint>
 
   <joint type="continuous" name="joint_RightBackWheel">
-    <origin xyz="-0.35 -0.35 0" rpy="0 0 0"/>
+    <origin xyz="-0.35 -0.25 0" rpy="0 0 0"/>
     <child link="RightBackWheel"/>
     <parent link="robot_base"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -171,7 +171,7 @@
     </joint>	
 
     <joint name ='hokuyo_joint' type = 'fixed'>
-	<origin xyz='0 0 0.35' rpy='0 0 0' />
+	<origin xyz='0 0 0.2' rpy='0 0 0' />
 	<parent link='robot_base'/>
 	<child link='hokuyo' />
 	<axis xyz='0 1 0' />
