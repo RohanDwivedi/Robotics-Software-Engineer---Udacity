@@ -36,7 +36,7 @@ void process_image_callback(const sensor_msgs::Image img)
   
 	for (int i=0; i < img.height * img.step; i++)    
 	{
-		if (img.data[i] == 255)
+		if (img.data[i] == 255 && img.data[i+1] ==255 and img.data[i+2] == 255)
         {
           // found the bright white one
           pixel_col = std::ceil(i%img.step);
