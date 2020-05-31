@@ -27,16 +27,16 @@
     
 	<visual name = 'robot_base_visual'>
         	<origin xyz = '0 0 0' rpy = '0 0 0' />
-        	<geometry> <box size='2 0.6 0.3'/> </geometry>
+        	<geometry> <box size='0.8 0.4 0.2'/> </geometry>
    	</visual>
 	
 	<visual name = 'robot_LidarPlate'>
         	<origin xyz = '0 0 0.1' rpy = '0 0 0' />
-        	<geometry> <box size='0.2 0.2 0.35'/> </geometry>
+        	<geometry> <box size='0.2 0.2 0.15'/> </geometry>
    	</visual>
 
 	<visual name='front_caster_visual'>
-      	<origin xyz="0.7 0 -0.2" rpy=" 0 0 0"/>
+      	<origin xyz="0.3 0 -0.2" rpy=" 0 0 0"/>
       	<geometry>
         	<sphere radius="0.06"/>
      	 </geometry>
@@ -52,7 +52,7 @@
    	
     	<collision name = 'collision' >
         	<origin xyz = '0 0 0' rpy = '0 0 0' />  
-        	<geometry> <box size='2 0.6 0.3'/> </geometry>
+        	<geometry> <box size='0.8 0.4 0.2'/> </geometry>
     	</collision>
         
     	<inertial>
@@ -67,12 +67,12 @@
      
     	<visual name='LeftBackWheel_visual'>
         	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
+        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
     	</visual>
         
         <collision name = 'collision'>
         	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
+        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
         </collision>
         
         <inertial>
@@ -87,12 +87,12 @@
      
     	<visual name='RightBackWheel_visual'>
         	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
+        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
     	</visual>
         
         <collision name = 'collision'>
         	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
+        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
         </collision>
         
         <inertial>
@@ -145,7 +145,7 @@
 	
 
   <joint type="continuous" name="joint_LeftBackWheel">
-    <origin xyz="-0.8 0.35 0" rpy="0 0 0"/>
+    <origin xyz="-0.35 0.35 0" rpy="0 0 0"/>
     <child link="LeftBackWheel"/>
     <parent link="robot_base"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -154,7 +154,7 @@
   </joint>
 
   <joint type="continuous" name="joint_RightBackWheel">
-    <origin xyz="-0.8 -0.35 0" rpy="0 0 0"/>
+    <origin xyz="-0.35 -0.35 0" rpy="0 0 0"/>
     <child link="RightBackWheel"/>
     <parent link="robot_base"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -164,7 +164,7 @@
 
     
     <joint name ='camera_joint' type = 'fixed'>
-	<origin xyz='0.8 0 0.19' rpy='0 0 0' />
+	<origin xyz='0.35 0 0.12' rpy='0 0 0' />
 	<parent link='robot_base'/>
 	<child link='camera' />
 	<axis xyz='0 1 0' />
