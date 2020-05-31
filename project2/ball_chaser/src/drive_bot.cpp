@@ -22,9 +22,6 @@ bool handle_drive_request (ball_chaser::DriveToTarget::Request& req, ball_chaser
   // publishes the command values to the motor
   motor_command_publisher.publish(motor_command);
   
-  //time out
-  ros::Duration(1).sleep();
-  
   //send a message feedback
   res.msg_feedback = "requested wheel velocities - linear x: " + std::to_string(req.linear_x) + " angular z: " + std::to_string(req.angular_z);
   ROS_INFO_STREAM(res.msg_feedback);
