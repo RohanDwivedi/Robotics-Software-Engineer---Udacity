@@ -1,181 +1,213 @@
-<?xml version='1.0'?>
+cmake_minimum_required(VERSION 2.8.3)
+project(ball_chaser)
 
-<robot name='my_robot' xmlns:xacro="http://www.ros.org/wiki/xacro">
-<xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
+## Compile as C++11, supported in ROS Kinetic and newer
+ add_compile_options(-std=c++11)
 
-	<gazebo reference='robot_base'>
-		<material> Gazebo/Grey </material>
-	</gazebo>
+## Find catkin macros and libraries
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## is used, also find other catkin packages
+find_package(catkin REQUIRED COMPONENTS
+  message_generation
+  roscpp
+  std_msgs
+)
 
-	<gazebo reference='LeftBackWheel'>
-		<material> Gazebo/FlatBlack </material>
-	</gazebo>
+## System dependencies are found with CMake's conventions
+# find_package(Boost REQUIRED COMPONENTS system)
 
-	<gazebo reference='RightBackWheel'>
-		<material> Gazebo/FlatBlack </material>
-	</gazebo>
 
-	<link name="robot_footprint"> </link>
+## Uncomment this if the package has a setup.py. This macro ensures
+## modules and global scripts declared therein get installed
+## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+# catkin_python_setup()
 
-  	<joint name="robot_footprint_joint" type="fixed">
-    		<origin xyz="0 0 0" rpy="0 0 0" />
-    		<parent link="robot_footprint"/>
-   		<child link="robot_base" />
-  	</joint>
+################################################
+## Declare ROS messages, services and actions ##
+################################################
 
-	<link name="robot_base">
-    
-	<visual name = 'robot_base_visual'>
-        	<origin xyz = '0 0 0' rpy = '0 0 0' />
-        	<geometry> <box size='0.8 0.4 0.2'/> </geometry>
-   	</visual>
-	
-	<visual name = 'robot_LidarPlate'>
-        	<origin xyz = '0 0 0.1' rpy = '0 0 0' />
-        	<geometry> <box size='0.2 0.2 0.15'/> </geometry>
-   	</visual>
+## To declare and build messages, services or actions from within this
+## package, follow these steps:
+## * Let MSG_DEP_SET be the set of packages whose message types you use in
+##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
+## * In the file package.xml:
+##   * add a build_depend tag for "message_generation"
+##   * add a build_depend and a exec_depend tag for each package in MSG_DEP_SET
+##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
+##     but can be declared for certainty nonetheless:
+##     * add a exec_depend tag for "message_runtime"
+## * In this file (CMakeLists.txt):
+##   * add "message_generation" and every package in MSG_DEP_SET to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * add "message_runtime" and every package in MSG_DEP_SET to
+##     catkin_package(CATKIN_DEPENDS ...)
+##   * uncomment the add_*_files sections below as needed
+##     and list every .msg/.srv/.action file to be processed
+##   * uncomment the generate_messages entry below
+##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
-	<visual name='front_caster_visual'>
-      	<origin xyz="0.3 0 -0.2" rpy=" 0 0 0"/>
-      	<geometry>
-        	<sphere radius="0.06"/>
-     	 </geometry>
-        </visual>
-	
-	<collision name='front_caster_collision'>
-      	<origin xyz="0.7 0 -0.2" rpy=" 0 0 0"/>
-      		<geometry>
-        		<sphere radius="0.06"/>
-      		</geometry>
-    	</collision>
-  
-   	
-    	<collision name = 'collision' >
-        	<origin xyz = '0 0 0' rpy = '0 0 0' />  
-        	<geometry> <box size='0.8 0.4 0.2'/> </geometry>
-    	</collision>
-        
-    	<inertial>
-        	<origin xyz = '0 0 0' rpy='0 0 0' />
-        	<mass value='8'/>
-        	<inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
-    	</inertial>
-        
-    </link>
-    
-    <link name="LeftBackWheel">
-     
-    	<visual name='LeftBackWheel_visual'>
-        	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
-    	</visual>
-        
-        <collision name = 'collision'>
-        	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
-        </collision>
-        
-        <inertial>
-        	<origin xyz = '0 0 0' rpy='0 0 0' />
-        	<mass value='5' />
-        	<inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
-        </inertial>
-     
-    </link>    
+## Generate messages in the 'msg' folder
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
-    <link name="RightBackWheel">
-     
-    	<visual name='RightBackWheel_visual'>
-        	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
-    	</visual>
-        
-        <collision name = 'collision'>
-        	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.2' length='0.07'/> </geometry>
-        </collision>
-        
-        <inertial>
-        	<origin xyz = '0 0 0' rpy='0 0 0' />
-        	<mass value='5' />
-        	<inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
-        </inertial>
-     
-    </link>    
+## Generate services in the 'srv' folder
+ add_service_files (
+    FILES
+    DriveToTarget.srv
+ )
 
-    <link name='camera'>
-	
-	<visual name='camera_visual'>
-		<origin xyz ='0 0 0' rpy='0 0 0' />
-		<geometry> <box size='0.05 .05 .05'/> </geometry>
-	</visual>
+## Generate actions in the 'action' folder
+# add_action_files(
+#   FILES
+#   Action1.action
+#   Action2.action
+# )
 
-	<collision name = 'collision'>
-		<origin xyz ='0 0 0' rpy='0 0 0' />
-		<geometry> <box size='0.05 0.05 0.05'/> </geometry>
-	</collision>
+## Generate added messages and services with any dependencies listed here
+ generate_messages(
+   DEPENDENCIES
+   std_msgs
+ )
 
-	<inertial>
-		<origin xyz='0.05 0.05 0.05' rpy = '0 0 0' />
-		<mass value='0.1'/>
-		<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-        </inertial>
+################################################
+## Declare ROS dynamic reconfigure parameters ##
+################################################
 
-    </link>	
-	
-    <link name='hokuyo'>
-	
-	<visual name='hokuyo_visual'>
-		<origin xyz ='0 0 0' rpy='0 0 0' />
-		<geometry> <mesh filename="package://my_robot/meshes/hokuyo.dae"/> </geometry>
-	</visual>
+## To declare and build dynamic reconfigure parameters within this
+## package, follow these steps:
+## * In the file package.xml:
+##   * add a build_depend and a exec_depend tag for "dynamic_reconfigure"
+## * In this file (CMakeLists.txt):
+##   * add "dynamic_reconfigure" to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * uncomment the "generate_dynamic_reconfigure_options" section below
+##     and list every .cfg file to be processed
 
-	<collision name = 'collision'>
-		<origin xyz ='0 0 0' rpy='0 0 0' />
-		<geometry> <box size='0.1 0.1 0.1'/> </geometry>
-	</collision>
+## Generate dynamic reconfigure parameters in the 'cfg' folder
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
+# )
 
-	<inertial>
-		<origin xyz='0.0 0.0 0.0' rpy = '0 0 0' />
-		<mass value='1e-5'/>
-		<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-        </inertial>
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if your package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+#catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES ball_chaser
+#  CATKIN_DEPENDS message_generation roscpp std_msgs
+#  DEPENDS system_lib
+#)
 
-    </link>		
-	
+###########
+## Build ##
+###########
 
-  <joint type="continuous" name="joint_LeftBackWheel">
-    <origin xyz="-0.35 0.35 0" rpy="0 0 0"/>
-    <child link="LeftBackWheel"/>
-    <parent link="robot_base"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
-  </joint>
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+  include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
 
-  <joint type="continuous" name="joint_RightBackWheel">
-    <origin xyz="-0.35 -0.35 0" rpy="0 0 0"/>
-    <child link="RightBackWheel"/>
-    <parent link="robot_base"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
-  </joint>
+## Declare a C++ library
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/ball_chaser.cpp
+# )
 
-    
-    <joint name ='camera_joint' type = 'fixed'>
-	<origin xyz='0.35 0 0.12' rpy='0 0 0' />
-	<parent link='robot_base'/>
-	<child link='camera' />
-	<axis xyz='0 1 0' />
-    </joint>	
+## Add cmake target dependencies of the library
+## as an example, code may need to be generated before libraries
+## either from message generation or dynamic reconfigure
+# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-    <joint name ='hokuyo_joint' type = 'fixed'>
-	<origin xyz='0 0 0.35' rpy='0 0 0' />
-	<parent link='robot_base'/>
-	<child link='hokuyo' />
-	<axis xyz='0 1 0' />
-    </joint>	
+## Declare a C++ executable
+## With catkin_make all packages are built within a single CMake context
+## The recommended prefix ensures that target names across packages don't collide
+# add_executable(${PROJECT_NAME}_node src/ball_chaser_node.cpp)
 
-</robot>
-        
+## Rename C++ executable without prefix
+## The above recommended prefix causes long target names, the following renames the
+## target back to the shorter version for ease of user use
+## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
+# set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
+
+## Add cmake target dependencies of the executable
+## same as for the library above
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## Specify libraries to link a library or executable target against
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
+
+#############
+## Install ##
+#############
+
+# all install targets should use catkin DESTINATION variables
+# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+
+## Mark executable scripts (Python etc.) for installation
+## in contrast to setup.py, you can choose the destination
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark executables for installation
+## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
+# install(TARGETS ${PROJECT_NAME}_node
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark libraries for installation
+## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
+# install(TARGETS ${PROJECT_NAME}
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+# )
+
+## Mark cpp header files for installation
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#   FILES_MATCHING PATTERN "*.h"
+#   PATTERN ".svn" EXCLUDE
+# )
+
+## Mark other files for installation (e.g. launch and bag files, etc.)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
+
+#############
+## Testing ##
+#############
+
+## Add gtest based cpp test target and link libraries
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_ball_chaser.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+# endif()
+
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)
+
+add_executable(drive_bot src/drive_bot.cpp)
+target_link_libraries(drive_bot ${catkin_LIBRARIES})
+add_dependencies(drive_bot  ball_chaser_generate_messages_cpp)
+
+add_executable(process_images src/process_images.cpp)
+target_link_libraries(process_images ${catkin_LIBRARIES})
+add_dependencies(process_images ball_chaser_generate_messages_cpp)
