@@ -7,14 +7,6 @@
 		<material> Gazebo/Grey </material>
 	</gazebo>
 
-	<gazebo reference='LeftFrontWheel'>
-		<material> Gazebo/FlatBlack </material>
-	</gazebo>
-
-	<gazebo reference='RightFrontWheel'>
-		<material> Gazebo/FlatBlack </material>
-	</gazebo>
-
 	<gazebo reference='LeftBackWheel'>
 		<material> Gazebo/FlatBlack </material>
 	</gazebo>
@@ -39,9 +31,23 @@
    	</visual>
 	
 	<visual name = 'robot_LidarPlate'>
-        	<origin xyz = '0 0 0.15' rpy = '0 0 0' />
+        	<origin xyz = '0 0 0.1' rpy = '0 0 0' />
         	<geometry> <box size='0.2 0.2 0.35'/> </geometry>
    	</visual>
+
+	<visual name='front_caster_visual'>
+      	<origin xyz="0.7 0 -0.2" rpy=" 0 0 0"/>
+      	<geometry>
+        	<sphere radius="0.06"/>
+     	 </geometry>
+        </visual>
+	
+	<collision name='front_caster_collision'>
+      	<origin xyz="0.7 0 -0.2" rpy=" 0 0 0"/>
+      		<geometry>
+        		<sphere radius="0.06"/>
+      		</geometry>
+    	</collision>
   
    	
     	<collision name = 'collision' >
@@ -56,46 +62,6 @@
     	</inertial>
         
     </link>
-     
-    <link name="LeftFrontWheel">
-     
-    	<visual name='LeftFrontWheel_visual'>
-        	<origin xyz = '0 0 0' rpy = '0 1.5707 1.5707' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
-    	</visual>
-        
-        <collision name = 'collision'>
-        	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
-        </collision>
-        
-        <inertial>
-        	<origin xyz = '0 0 0' rpy='0 0 0' />
-        	<mass value='5' />
-        	<inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
-        </inertial>
-     
-    </link>    
-
-    <link name="RightFrontWheel">
-     
-    	<visual name='RightFrontWheel_visual'>
-        	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
-    	</visual>
-        
-        <collision name = 'collision'>
-        	<origin xyz = '0 0 0' rpy = '1.5707 1.5707 0' />
-        	<geometry> <cylinder radius='0.3' length='0.07'/> </geometry>
-        </collision>
-        
-        <inertial>
-        	<origin xyz = '0 0 0' rpy='0 0 0' />
-        	<mass value='5' />
-        	<inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
-        </inertial>
-     
-    </link>    
     
     <link name="LeftBackWheel">
      
@@ -177,24 +143,6 @@
 
     </link>		
 	
-
-   <joint type="continuous" name="joint_LeftFrontWheel">
-    <origin xyz="0.8 0.35 0" rpy="0 0 0"/>
-    <child link="LeftFrontWheel"/>
-    <parent link="robot_base"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
-  </joint>
-
-   <joint type="continuous" name="joint_RightFrontWheel">
-    <origin xyz="0.8 -0.35 0" rpy="0 0 0"/>
-    <child link="RightFrontWheel"/>
-    <parent link="robot_base"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
-  </joint>
 
   <joint type="continuous" name="joint_LeftBackWheel">
     <origin xyz="-0.8 0.35 0" rpy="0 0 0"/>
