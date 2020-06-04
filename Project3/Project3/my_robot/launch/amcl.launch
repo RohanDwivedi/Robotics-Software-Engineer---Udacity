@@ -7,9 +7,28 @@
   <param name="odom_model_type" value="diff-corrected"/>
   <param name="base_frame_id" value="robot_footprint"/>
   <param name="global_frame_id" value="map"/>
+  
   <param name="initial_pose_x" value="-6.291"/>
   <param name="initial_pose_y" value="8.669"/>
-   <param name="initial_pose_a" value="-1.602"/>
+  <param name="initial_pose_a" value="-1.602"/>
+  
+  <!-- parameter tuning -->
+  
+ <param name="min_particles" value="100"/>
+ <param name="max_particles" value="500"/>
+
+  <param name="odom_alpha1" value="0.05"/>
+  <param name="odom_alpha2" value="0.05"/>
+  <param name="odom_alpha3" value="0.05"/>
+  <param name="odom_alpha4" value="0.05"/>
+
+  <param name="laser_model_type" value="likelihood_field"/>
+  <param name=" laser_min_range" value="-1.0"/>
+  <param name=" laser_max_range" value="-1.0"/>
+  <param name=" laser_max_beams" value="50"/>
+  <param name=" laser_z_hit" value="0.98"/>
+  <param name=" laser_z_rand" value="0.02"/>
+  
 </node>
 
 <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
